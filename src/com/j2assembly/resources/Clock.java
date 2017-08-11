@@ -32,5 +32,5 @@ public class Clock {
 		this.speed = speed * clockScalar.getScalar();
 	}
 
-
+	public static void delay(int time) {}
 }

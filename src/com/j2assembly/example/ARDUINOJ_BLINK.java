@@ -1,5 +1,9 @@
 package com.j2assembly.example;
 
+import com.j2assembly.resources.Clock;
+import com.j2assembly.resources.Pin;
+import com.j2assembly.resources.Port;
+
 import java.io.File;
 
 /**
@@ -8,13 +12,18 @@ import java.io.File;
 public class ARDUINOJ_BLINK {
 
 
-
-	private int test = 1;
-
 	public static void main() {
-		new ARDUINOJ_BLINK();
+
+		Port.define('D', new int[]{2,3,4,5,6,11,12,13});
+		Pin.setPinType(Pin.PinType.Write);
+
 	}
 
-
+	public static void loop() {
+		Clock.delay(1000);
+		Pin.setPin(13, Pin.HIGH);
+		Clock.delay(1000);
+		Pin.setPin(13, Pin.LOW);
+	}
 
 }
