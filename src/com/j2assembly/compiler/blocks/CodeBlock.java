@@ -3,6 +3,7 @@ package com.j2assembly.compiler.blocks;
 import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.TokenType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,11 +11,12 @@ import java.util.List;
  */
 public abstract class CodeBlock {
 
-	private List<CodeBlock> childBlocks;
+	protected List<CodeBlock> childBlocks;
 	private TokenType tokenType;
 
 	public CodeBlock(TokenType tokenType, List<Token> tokens) {
 		this.tokenType = tokenType;
+		this.childBlocks = new ArrayList<>();
 		extractTokenData(tokens);
 	}
 
