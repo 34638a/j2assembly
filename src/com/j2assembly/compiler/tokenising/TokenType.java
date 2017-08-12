@@ -129,19 +129,20 @@ public enum TokenType {
 		}
 	}),
 
-	TOKEN_CLASS(Pattern.compile("^(.*\\.)"), new TokenGenerator() {
+	TOKEN_CLASS(Pattern.compile("^([a-zA-Z_][a-zA-Z0-9_]*\\.)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token(tokenData.replaceAll("\\.",""), TOKEN_CLASS);
 		}
 	}),
-	TOKEN_SUBCLASS(Pattern.compile("^(\\..*\\.)"), new TokenGenerator() {
+	//I don't think this will be triggered :(
+	TOKEN_SUBCLASS(Pattern.compile("^(\\.[a-zA-Z_][a-zA-Z0-9_]*\\.)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token(tokenData.replaceAll("\\.",""), TOKEN_SUBCLASS);
 		}
 	}),
-	TOKEN_FUNCTION(Pattern.compile("^(.*\\()"), new TokenGenerator() {
+	TOKEN_FUNCTION(Pattern.compile("^([a-zA-Z_][a-zA-Z0-9_]*\\()"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token(tokenData, TOKEN_FUNCTION);
@@ -282,7 +283,7 @@ public enum TokenType {
 	}),
 
 	//Number token
-	TOKEN_NUMBER(Pattern.compile("^((-)?[0-9])"), new TokenGenerator() {
+	TOKEN_NUMBER(Pattern.compile("^((-)?[0-9]([0-9]*)?)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token(tokenData , TOKEN_NUMBER);
