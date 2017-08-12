@@ -113,19 +113,19 @@ public enum TokenType {
 	TOKEN_PROTECTION_PUBLIC(Pattern.compile("^(public)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
-			return new Token(tokenData, TOKEN_PACKAGE);
+			return new Token(tokenData, TOKEN_PROTECTION_PUBLIC);
 		}
 	}),
 	TOKEN_PROTECTION_PRIVATE(Pattern.compile("^(private)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
-			return new Token(tokenData, TOKEN_PACKAGE);
+			return new Token(tokenData, TOKEN_PROTECTION_PRIVATE);
 		}
 	}),
 	TOKEN_PROTECTION_PROTECTED(Pattern.compile("^(protected)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
-			return new Token(tokenData, TOKEN_PACKAGE);
+			return new Token(tokenData, TOKEN_PROTECTION_PROTECTED);
 		}
 	}),
 
