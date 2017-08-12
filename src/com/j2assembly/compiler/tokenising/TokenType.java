@@ -72,6 +72,12 @@ public enum TokenType {
 			return new Token(tokenData.replaceFirst("if\\s*", ""), TOKEN_IF);
 		}
 	}),
+	TOKEN_NEW(Pattern.compile("^(new\\s*)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData, TOKEN_NEW);
+		}
+	}),
 	TOKEN_RETURN(Pattern.compile("^(return\\s*.*?;)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
@@ -88,6 +94,18 @@ public enum TokenType {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token(tokenData.replaceFirst("import\\s*", ""), TOKEN_IMPORT);
+		}
+	}),
+	TOKEN_STATIC(Pattern.compile("^(static\\s*)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData.trim(), TOKEN_STATIC);
+		}
+	}),
+	TOKEN_VOID(Pattern.compile("^(void\\s*)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData.trim(), TOKEN_VOID);
 		}
 	}),
 
@@ -111,20 +129,28 @@ public enum TokenType {
 		}
 	}),
 
+	TOKEN_CLASS(Pattern.compile("^(.*\\.)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData.replaceAll("\\.",""), TOKEN_CLASS);
+		}
+	}),
+	TOKEN_SUBCLASS(Pattern.compile("^(\\..*\\.)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData.replaceAll("\\.",""), TOKEN_SUBCLASS);
+		}
+	}),
+	TOKEN_FUNCTION(Pattern.compile("^(.*\\()"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData, TOKEN_FUNCTION);
+		}
+	}),
 	//Grouping Tokens
 	/*
-	TOKEN_FUNCTION(Pattern.compile("^(if\\s*.*?\\))"), new TokenGenerator() {
-		@Override
-		public Token createToken(String tokenData) {
-			return null;
-		}
-	}),
-	TOKEN_CLASS(Pattern.compile(""), new TokenGenerator() {
-		@Override
-		public Token createToken(String tokenData) {
-			return null;
-		}
-	}),
+
+
 	TOKEN_ENUM(Pattern.compile(""), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
@@ -256,7 +282,7 @@ public enum TokenType {
 	}),
 
 	//Number token
-	TOKEN_NUMBER(Pattern.compile("^((-)?\\d)"), new TokenGenerator() {
+	TOKEN_NUMBER(Pattern.compile("^((-)?[0-9])"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token(tokenData , TOKEN_NUMBER);

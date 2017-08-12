@@ -1,5 +1,6 @@
 package com.j2assembly.example;
 
+import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.Tokenizer;
 
 import java.io.File;
@@ -31,7 +32,8 @@ public class BasicTestCode {
 		Tokenizer tokenizer = new Tokenizer(testCode);
 
 		while (tokenizer.hasNextToken()) {
-			System.out.println(tokenizer.nextToken().getToken());
+			Token t = tokenizer.nextToken();
+			System.out.println(t.getTokenType() + ": "+ t.getToken());
 		}
 	}
 
