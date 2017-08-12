@@ -29,7 +29,7 @@ public class BasicTestCode {
 		}
 
 
-		Tokenizer tokenizer = new Tokenizer(testCode);
+		Tokenizer tokenizer = new Tokenizer(testCode, false);
 
 		while (tokenizer.hasNextToken()) {
 			Token t = tokenizer.nextToken();

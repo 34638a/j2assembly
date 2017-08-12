@@ -15,9 +15,12 @@ public class Tokenizer {
 	private boolean pushBack;
 
 
-	public Tokenizer(String fileData) {
+	public Tokenizer(String fileData, boolean silence) {
 		this.fileData = fileData.replaceAll("//.*|(\"(?:\\\\[^\"]|\\\\\"|.)*?\")|(?s)/\\*.*?\\*/", "").replaceAll("\r", "");
-		System.out.println("Processing File:\n" + this.fileData + "\n________________________________\n\n");
+
+		if (!silence) {
+			System.out.println("Processing File:\n" + this.fileData + "\n________________________________\n\n");
+		}
 	}
 
 	public Token nextToken() {

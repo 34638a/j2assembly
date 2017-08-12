@@ -2,7 +2,6 @@ package com.j2assembly.compiler;
 
 import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.Tokenizer;
-import com.j2assembly.example.ARDUINOJ_BLINK;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,18 +22,17 @@ public class Compiler {
 		this.tokenList = new ArrayList<>();
 		this.silence = silence;
 
-		interperate(MainClass.getCanonicalName());
-
+		interpret(MainClass.getCanonicalName());
 	}
 
-	private List<Token> interperate(String path) {
+	private List<Token> interpret(String path) {
 		List<Token> tokens = new ArrayList<>();
-		Tokenizer tokenizer = new Tokenizer(path);
+		Tokenizer tokenizer = new Tokenizer(path, silence);
 
 		while (tokenizer.hasNextToken()) {
 			Token t = tokenizer.nextToken();
 			tokens.add(t);
-			if (silence) {
+			if (!silence) {
 				System.out.println(t.getTokenType() + ": " + t.getToken());
 			}
 		}
@@ -46,5 +44,14 @@ public class Compiler {
 		return new String(Files.readAllBytes(
 				Paths.get(new File("src/" + packagePath.replace('.','/') + ".java").getCanonicalPath())
 		));
+	}
+
+	/**
+	 * Getter for property 'tokenList'.
+	 *
+	 * @return Value for property 'tokenList'.
+	 */
+	public List<Token> getTokenList() {
+		return tokenList;
 	}
 }
