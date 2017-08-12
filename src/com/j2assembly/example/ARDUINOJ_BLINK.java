@@ -24,6 +24,10 @@ public class ARDUINOJ_BLINK {
 		Pin.setPin(13, Pin.HIGH);
 		Clock.delay(1000);
 		Pin.setPin(13, Pin.LOW);
+
+		if (true) {
+			Pin.setPin(13, Pin.LOW);
+		}
 	}
 
 }

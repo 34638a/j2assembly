@@ -66,10 +66,10 @@ public enum TokenType {
 	}),
 
 	//Logical Flow Control Tokens
-	TOKEN_IF(Pattern.compile("^(if\\s*.*?\\))"), new TokenGenerator() {
+	TOKEN_IF(Pattern.compile("^(if\\s*)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {
-			return new Token(tokenData.replaceFirst("if\\s*", ""), TOKEN_IF);
+			return new Token(tokenData, TOKEN_IF);
 		}
 	}),
 	TOKEN_NEW(Pattern.compile("^(new\\s*)"), new TokenGenerator() {
