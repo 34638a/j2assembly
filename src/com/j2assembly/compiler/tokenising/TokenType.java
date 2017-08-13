@@ -72,6 +72,12 @@ public enum TokenType {
 			return new Token(tokenData, TOKEN_IF);
 		}
 	}),
+	TOKEN_WHILE(Pattern.compile("^while\\s*"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData, TOKEN_WHILE);
+		}
+	}),
 	TOKEN_NEW(Pattern.compile("^(new\\s*)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {

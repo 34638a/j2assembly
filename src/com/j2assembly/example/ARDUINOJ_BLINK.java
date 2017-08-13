@@ -33,6 +33,10 @@ public class ARDUINOJ_BLINK {
 		if (true) {
 			Pin.setPin(13, Pin.LOW);
 		}
+
+		while (true) {
+			Pin.setPin(13, Pin.LOW);
+		}
 	}
 
 }
