@@ -5,6 +5,8 @@ package com.j2assembly.resources;
  */
 public class Clock {
 
+
+
 	private int speed;
 	public enum ClockScalar {
 		Hz (1),
@@ -32,5 +34,11 @@ public class Clock {
 		this.speed = speed * clockScalar.getScalar();
 	}
 
-	public static void delay(int time) {}
+	public static void delay(int time) {
+		System.out.println("Controller Delay: " + time);
+	}
+
+	public static void define(int clockSpeed) {
+		System.out.println("Controller Clock Speed: " + clockSpeed);
+	}
 }

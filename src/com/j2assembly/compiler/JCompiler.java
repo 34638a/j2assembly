@@ -13,12 +13,14 @@ import java.util.List;
 /**
  * Created by Jordan Laptop on 9/08/2017.
  */
-public class Compiler {
+public class JCompiler {
+
+	private static List<String> includes = new ArrayList<>();
 
 	private List<Token> tokenList;
 	private boolean silence;
 
-	public Compiler(Class MainClass, boolean silence) throws IOException {
+	public JCompiler(Class MainClass, boolean silence) throws IOException {
 		this.tokenList = new ArrayList<>();
 		this.silence = silence;
 
@@ -53,5 +55,10 @@ public class Compiler {
 	 */
 	public List<Token> getTokenList() {
 		return tokenList;
+	}
+
+	public static void include(String library) {
+		includes.add(library);
+		System.out.println("Including Library: " + library);
 	}
 }

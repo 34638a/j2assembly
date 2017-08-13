@@ -172,6 +172,32 @@ public enum TokenType {
 	}),
 	//*/
 
+
+
+	//Number token
+	TOKEN_NUMBER(Pattern.compile("^((-)?[0-9]([0-9]*)?)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData , TOKEN_NUMBER);
+		}
+	}),
+
+	//String literal
+	TOKEN_STRING(Pattern.compile("^(\".*\")"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData.substring(1, tokenData.length()-1), TOKEN_STRING);
+		}
+	}),
+
+	//A variable for all intents and purposes
+	IDENTIFIER(Pattern.compile("^([a-zA-Z_][a-zA-Z0-9_]*)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData, IDENTIFIER);
+		}
+	}),
+
 	//Math related tokens
 	TOKEN_MATH_ADDITION(Pattern.compile("\\+"), new TokenGenerator() {
 		@Override
@@ -279,30 +305,6 @@ public enum TokenType {
 		@Override
 		public Token createToken(String tokenData) {
 			return new Token("<=" , TOKEN_COMPARE_LESSEREQUALS);
-		}
-	}),
-
-	//Number token
-	TOKEN_NUMBER(Pattern.compile("^((-)?[0-9]([0-9]*)?)"), new TokenGenerator() {
-		@Override
-		public Token createToken(String tokenData) {
-			return new Token(tokenData , TOKEN_NUMBER);
-		}
-	}),
-
-	//String literal
-	TOKEN_STRING(Pattern.compile("^(\".*\")"), new TokenGenerator() {
-		@Override
-		public Token createToken(String tokenData) {
-			return new Token(tokenData.substring(1, tokenData.length()-1), TOKEN_STRING);
-		}
-	}),
-
-	//A variable for all intents and purposes
-	IDENTIFIER(Pattern.compile("^([a-zA-Z_][a-zA-Z0-9_]*)"), new TokenGenerator() {
-		@Override
-		public Token createToken(String tokenData) {
-			return new Token(tokenData, IDENTIFIER);
 		}
 	}),
 

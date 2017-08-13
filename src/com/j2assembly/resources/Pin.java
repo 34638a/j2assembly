@@ -9,9 +9,9 @@ public class Pin {
 	public static boolean LOW = false;
 
 	public static void setPin(int pin, boolean value){}
-	public static boolean readPin(int pin){return true;}
 
-	public static void setPinType(PinType pinType){}
+
+	public static boolean readPin(int pin){return true;}
 
 	public enum PinType {
 		Read,

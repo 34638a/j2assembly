@@ -16,7 +16,7 @@ public class Tokenizer {
 
 
 	public Tokenizer(String fileData, boolean silence) {
-		this.fileData = fileData.replaceAll("//.*|(\"(?:\\\\[^\"]|\\\\\"|.)*?\")|(?s)/\\*.*?\\*/", "").replaceAll("\r", "");
+		this.fileData = fileData.replaceAll("//.*|(?s)/\\*.*?\\*/", "");//.replaceAll("\r", "");
 
 		if (!silence) {
 			System.out.println("Processing File:\n" + this.fileData + "\n________________________________\n\n");
