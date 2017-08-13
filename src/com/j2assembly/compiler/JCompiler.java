@@ -1,5 +1,7 @@
 package com.j2assembly.compiler;
 
+import com.j2assembly.compiler.blocks.CodeBlock;
+import com.j2assembly.compiler.blocks.CodeBlockController;
 import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.Tokenizer;
 
@@ -16,15 +18,25 @@ import java.util.List;
 public class JCompiler {
 
 	private static List<String> includes = new ArrayList<>();
+	private List<CodeBlock> codeBlocks;
 
 	private List<Token> tokenList;
 	private boolean silence;
 
 	public JCompiler(Class MainClass, boolean silence) throws IOException {
-		this.tokenList = new ArrayList<>();
 		this.silence = silence;
 
-		interpret(MainClass.getCanonicalName());
+		tokenList = interpret(getClassPath(MainClass.getCanonicalName()));
+		codeBlocks = CodeBlockController.processTokens(tokenList);
+
+		String code = "";
+		for (CodeBlock block : codeBlocks) {
+			code += block.getCode();
+		}
+
+		System.out.println("\n\n______________________________________________________________\n");
+
+		System.out.println(code);
 	}
 
 	private List<Token> interpret(String path) {

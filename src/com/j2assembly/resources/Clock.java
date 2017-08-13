@@ -38,7 +38,7 @@ public class Clock {
 		System.out.println("Controller Delay: " + time);
 	}
 
-	public static void define(int clockSpeed) {
-		System.out.println("Controller Clock Speed: " + clockSpeed);
+	public static void define(int speed, ClockScalar clockScalar) {
+		System.out.println("Controller Clock Speed: " + speed * clockScalar.getScalar());
 	}
 }

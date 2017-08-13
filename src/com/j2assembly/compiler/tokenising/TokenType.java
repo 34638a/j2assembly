@@ -129,6 +129,13 @@ public enum TokenType {
 		}
 	}),
 
+	TOKEN_CLASS_LITERAL(Pattern.compile("^(class)"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token(tokenData, TOKEN_CLASS_LITERAL);
+		}
+	}),
+
 	TOKEN_CLASS(Pattern.compile("^([a-zA-Z_][a-zA-Z0-9_]*\\.)"), new TokenGenerator() {
 		@Override
 		public Token createToken(String tokenData) {

@@ -28,7 +28,7 @@ public abstract class CodeBlock {
 			code += child.getCode();
 		}
 		code += generateCodeEnd();
-		return code;
+		return code + "\n";
 	}
 	public abstract String generateCodeStart();
 	public abstract String generateCodeEnd();
