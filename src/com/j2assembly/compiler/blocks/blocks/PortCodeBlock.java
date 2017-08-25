@@ -3,6 +3,7 @@ package com.j2assembly.compiler.blocks.blocks;
 import com.j2assembly.compiler.blocks.CodeBlock;
 import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.TokenType;
+import com.j2assembly.resources.helpers.Port;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +34,14 @@ public class PortCodeBlock extends CodeBlock {
 		}
 
 		tokens.removeAll(portToken);
+
+		Port.define(portToken.get(2).getToken().charAt(1), getPortPins(), getPortIODirection());
 	}
 
 	@Override
 	public String generateCodeStart() {
 
-		return "DDR" + portToken.get(2) + " = 0b" + getPortIODirection() + ';';
+		return "DDR" + portToken.get(2).getToken().charAt(1) + " = 0b" + getPortIODirectionString() + ';';
 	}
 
 	@Override
@@ -47,11 +50,11 @@ public class PortCodeBlock extends CodeBlock {
 	}
 
 
-	private String getPortIODirection() {
+	private String getPortIODirectionString() {
 
 		String code = "";
-		for (int i = 0; i < 8; ) {
-			if (portToken.get(32 + i*3).getToken().equalsIgnoreCase("WRITE")) {
+		for (boolean bool : getPortIODirection()) {
+			if (bool) {
 				code += '1';
 			} else {
 				code += '0';
@@ -59,5 +62,23 @@ public class PortCodeBlock extends CodeBlock {
 		}
 
 		return code;
+	}
+
+	private boolean[] getPortIODirection() {
+		boolean[] booleans = new boolean[8];
+		for (int i = 0; i < 8; i++) {
+			if (portToken.get(32 + i*3).getToken().equalsIgnoreCase("WRITE")) {
+				booleans[i] = true;
+			}
+		}
+		return booleans;
+	}
+
+	private int[] getPortPins() {
+		int[] pins = new int[8];
+		for (int i = 0; i < 8; i++) {
+			pins[i] = Integer.parseInt(portToken.get(9 + i*2).getToken());
+		}
+		return pins;
 	}
 }

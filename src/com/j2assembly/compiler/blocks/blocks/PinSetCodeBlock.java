@@ -3,7 +3,7 @@ package com.j2assembly.compiler.blocks.blocks;
 import com.j2assembly.compiler.blocks.CodeBlock;
 import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.TokenType;
-import com.j2assembly.resources.Port;
+import com.j2assembly.resources.helpers.Port;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,13 @@ public class PinSetCodeBlock extends CodeBlock {
 
 	@Override
 	protected void extractTokenData(List<Token> tokens) {
-
-		if (!tokens.get(0).getToken().equalsIgnoreCase("PIN")
-				&& !tokens.get(1).getToken().equalsIgnoreCase("setPin(")
-				) {
+		try {
+			if (!tokens.get(0).getToken().equalsIgnoreCase("PIN")
+					&& !tokens.get(1).getToken().equalsIgnoreCase("setPin(")
+					) {
+				return;
+			}
+		} catch (Exception e) {
 			return;
 		}
 		pinTokens = new ArrayList<>();
@@ -77,17 +80,18 @@ public class PinSetCodeBlock extends CodeBlock {
 			}
 		}
 
-		String code = "0b";
+		String code = "";
 		for (int i = 0; i < 8; i++) {
 			if (i == bit) {
-				code += '1';
+				code = '1' + code;
 			} else {
-				code += '0';
+				code = '0' + code;
 			}
 		}
+		code = "0b" + code;
 
 		String p = "PORT" + port.getName();
 
-		return p + (value.equalsIgnoreCase("HIGH") ? " |= " : " &= ~") + code;
+		return p + (value.equalsIgnoreCase("HIGH") ? " |= " : " &= ~") + code + ";";
 	}
 }

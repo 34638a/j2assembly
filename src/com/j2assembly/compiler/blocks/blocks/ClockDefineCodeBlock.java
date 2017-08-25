@@ -35,8 +35,8 @@ public class ClockDefineCodeBlock extends CodeBlock {
 		 */
 		//*/
 		if (
-				!tokens.get(0).getToken().equalsIgnoreCase("Clock") &&
-						!tokens.get(1).getToken().equalsIgnoreCase("define(")
+				!(tokens.get(0).getToken().equalsIgnoreCase("Clock") &&
+						tokens.get(1).getToken().equalsIgnoreCase("define("))
 				) {
 			return;
 		}
@@ -54,7 +54,7 @@ public class ClockDefineCodeBlock extends CodeBlock {
 
 	@Override
 	public String generateCodeStart() {
-		return "set_clock_speed(CPU_" + tokensList.get(2).getToken() + tokensList.get(7) + ");";
+		return "set_clock_speed(CPU_" + tokensList.get(2).getToken() + tokensList.get(6).getToken() + ");";
 	}
 
 	@Override

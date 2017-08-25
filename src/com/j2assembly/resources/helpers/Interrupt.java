@@ -1,4 +1,4 @@
-package com.j2assembly.resources;
+package com.j2assembly.resources.helpers;
 
 import java.lang.annotation.Documented;
 

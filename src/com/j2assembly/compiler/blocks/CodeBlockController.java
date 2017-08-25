@@ -1,5 +1,6 @@
 package com.j2assembly.compiler.blocks;
 
+import com.j2assembly.compiler.JCompiler;
 import com.j2assembly.compiler.blocks.blocks.*;
 import com.j2assembly.compiler.tokenising.Token;
 import com.j2assembly.compiler.tokenising.TokenType;
@@ -20,11 +21,16 @@ public class CodeBlockController {
 			int size = tokens.size();
 
 			//Check for reserved classes first
-
-			//check if there are compiler hints
-			CodeBlock block = new JCompilerIncludeCodeBlock(tokens);
+			CodeBlock block = new MainCodeBlock(tokens);
 			if (size != tokens.size()) {
 				blocks.add(block);
+				continue;
+			}
+
+			//check if there are compiler hints
+			block = new JCompilerIncludeCodeBlock(tokens);
+			if (size != tokens.size()) {
+				JCompiler.headers.add(block);
 				continue;
 			}
 
@@ -43,7 +49,7 @@ public class CodeBlockController {
 			}
 
 			//check for clock
-			block = new ClockDelayCodeBlock(tokens);
+			block = new ClockDefineCodeBlock(tokens);
 			if (size != tokens.size()) {
 				blocks.add(block);
 				continue;
@@ -88,8 +94,14 @@ public class CodeBlockController {
 
 			//Check for normal scripts
 
+			block = new WhileLoopBlock(tokens);
+			if (size != tokens.size()) {
+				blocks.add(block);
+				continue;
+			}
+
 			//check for function call
-			block = new FunctionCodeBlock(tokens);
+			block = new FunctionCallCodeBlock(tokens);
 			if (size != tokens.size()) {
 				blocks.add(block);
 				continue;
@@ -102,7 +114,12 @@ public class CodeBlockController {
 				continue;
 			}
 
-
+			//check for boolean
+			block = new BooleanCodeBlock(tokens);
+			if (size != tokens.size()) {
+				blocks.add(block);
+				continue;
+			}
 		}
 
 		return blocks;

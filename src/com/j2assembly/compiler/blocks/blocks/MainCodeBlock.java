@@ -1,6 +1,5 @@
 package com.j2assembly.compiler.blocks.blocks;
 
-import com.j2assembly.compiler.JCompiler;
 import com.j2assembly.compiler.blocks.CodeBlock;
 import com.j2assembly.compiler.blocks.CodeBlockController;
 import com.j2assembly.compiler.tokenising.Token;
@@ -10,30 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jordan Laptop on 12/08/2017.
+ * Created by Jordan Laptop on 25/08/2017.
  */
-public class FunctionCodeBlock extends CodeBlock {
-
+public class MainCodeBlock extends CodeBlock {
 
 	private List<Token> paramsFunction, functionTokens;
 	private String codeParams;
 
-	public FunctionCodeBlock(List<Token> tokens) {
-		super(TokenType.TOKEN_FUNCTION, tokens);
+	public MainCodeBlock(List<Token> tokens) {
+		super(TokenType.TOKEN_MAIN, tokens);
 	}
 
 	@Override
 	protected void extractTokenData(List<Token> tokens) {
-		try {
-			if (
-					!(
-							tokens.get(1).getTokenType() == TokenType.TOKEN_FUNCTION ||
-							tokens.get(2).getTokenType() == TokenType.TOKEN_FUNCTION
-					)
-					) {
-				return;
-			}
-		} catch (Exception e) {
+		if (
+				tokens.get(0).getTokenType() != TokenType.TOKEN_MAIN
+				) {
 			return;
 		}
 		paramsFunction = new ArrayList<>();
@@ -93,44 +84,14 @@ public class FunctionCodeBlock extends CodeBlock {
 			paramsFunction.remove(0);
 		}
 
-		codeParams = paramsFunction.get(0).getToken() + " " + paramsFunction.get(1).getToken();
-		paramsFunction.remove(0);
-		if (paramsFunction.get(0).getTokenType() == TokenType.TOKEN_FUNCTION) {
-			paramsFunction.remove(0);
-		}
-		paramsFunction.remove(paramsFunction.size() - 1);
-
-
-		//GENERATE MORE CODE BLOCKS
-		childBlocks = CodeBlockController.processTokens(paramsFunction);
-		for (CodeBlock codeBlock : childBlocks) {
-			codeParams += codeBlock.getCode();
-		}
+		codeParams = "int main(";
 
 		childBlocks = CodeBlockController.processTokens(functionTokens);
-		JCompiler.headers.add(new CodeBlock(TokenType.TOKEN_FUNCTION, null) {
-			@Override
-			protected void extractTokenData(List<Token> tokens) {
-
-			}
-
-			@Override
-			public String generateCodeStart() {
-				return codeParams + ");";
-			}
-
-			@Override
-			public String generateCodeEnd() {
-				return "";
-			}
-		});
 	}
 
 	@Override
 	public String generateCodeStart() {
-
-
-		return codeParams +") {\n";
+		return codeParams + ") {";
 	}
 
 	@Override

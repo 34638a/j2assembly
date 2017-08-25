@@ -1,4 +1,4 @@
-package com.j2assembly.resources;
+package com.j2assembly.resources.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +12,18 @@ public class Port {
 
 	public static List<Port> ports = new ArrayList<>();
 
-	public static void define(char name, int[] pins, boolean[] map){
+	public static Port define(char name, int[] pins, boolean[] map){
 		for (Port port : ports) {
 			for (int i = 0; i < pins.length; i++) {
 				for (int o = 0; o < pins.length; o++) {
 					if (port.pins[o] == pins[i]) {
-						return;
+						return null;
 					}
 				}
 			}
 		}
 		ports.add(new Port(name, pins, map));
+		return ports.get(ports.size()-1);
 	}
 
 

@@ -8,7 +8,15 @@ import java.util.regex.Pattern;
 public enum TokenType {
 
 	//A Token is used for flow control.
-	
+	//definitions
+	TOKEN_MAIN(Pattern.compile("^(public static void main\\()"), new TokenGenerator() {
+		@Override
+		public Token createToken(String tokenData) {
+			return new Token("int main()", TOKEN_MAIN);
+		}
+	}),
+
+
 	//Common flow control characters
 	TOKEN_LBRACKET(Pattern.compile("^(\\()"), new TokenGenerator() {
 		@Override

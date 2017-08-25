@@ -20,10 +20,14 @@ public class JCompilerIncludeCodeBlock extends CodeBlock {
 
 	@Override
 	protected void extractTokenData(List<Token> tokens) {
-		if (
-				!tokens.get(0).getToken().equalsIgnoreCase("JCompiler") &&
-				!tokens.get(1).getToken().equalsIgnoreCase("include(")
-				) {
+		try {
+			if (
+					!tokens.get(0).getToken().equalsIgnoreCase("JCompiler") &&
+							!tokens.get(1).getToken().equalsIgnoreCase("include(")
+					) {
+				return;
+			}
+		} catch (Exception e) {
 			return;
 		}
 		includeTokens = new ArrayList<>();
@@ -43,7 +47,7 @@ public class JCompilerIncludeCodeBlock extends CodeBlock {
 
 		String code = "";
 		for (int i = 0; i < (includeTokens.size()-3)/2; i++) {
-			code += includeTokens.get(2 + i*2) + "\n";
+			code += includeTokens.get(2 + i*2).getToken() + "\n";
 		}
 		return code;
 	}

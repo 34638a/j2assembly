@@ -1,4 +1,4 @@
-package com.j2assembly.resources;
+package com.j2assembly.resources.helpers;
 
 /**
  * Created by Jordan Laptop on 9/08/2017.

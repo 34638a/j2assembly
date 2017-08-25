@@ -21,10 +21,14 @@ public class ClockDelayCodeBlock extends CodeBlock {
 
 	@Override
 	protected void extractTokenData(List<Token> tokens) {
-		if (
-				!tokens.get(0).getToken().equalsIgnoreCase("Clock") &&
-						!tokens.get(1).getToken().equalsIgnoreCase("delay(")
-				) {
+		try {
+			if (
+					!(tokens.get(0).getToken().equalsIgnoreCase("Clock") &&
+							tokens.get(1).getToken().equalsIgnoreCase("delay("))
+					) {
+				return;
+			}
+		} catch (Exception e) {
 			return;
 		}
 		tokensList = new ArrayList<>();
@@ -41,12 +45,12 @@ public class ClockDelayCodeBlock extends CodeBlock {
 
 	@Override
 	public String generateCodeStart() {
-		return "_delay_ms(" + tokensList.get(2) + ");";
+		return "_delay_ms(" + tokensList.get(2).getToken() + ");";
 
 	}
 
 	@Override
 	public String generateCodeEnd() {
-		return null;
+		return "";
 	}
 }

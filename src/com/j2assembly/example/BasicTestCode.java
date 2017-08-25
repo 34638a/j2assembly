@@ -16,8 +16,6 @@ import java.util.stream.Stream;
  */
 public class BasicTestCode {
 
-	private static String testCode = "";
-
 
 	public static void main(String[] args) throws IOException {
 
